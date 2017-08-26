@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+
+
+swagger:
+  enabled: true
+  title: Scaffold Rest API
+  description: Spring Boot中使用Swagger2构建RESTful APIs
+  contact: chaochao.yuan@vivo.com
+  patterns:
+    - .*users.*
+    - .*applications.*
