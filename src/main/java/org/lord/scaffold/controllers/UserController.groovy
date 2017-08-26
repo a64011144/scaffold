@@ -1,5 +1,6 @@
 package org.lord.scaffold.controllers
 
+import groovy.util.logging.Slf4j
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
@@ -14,6 +15,7 @@ import springfox.documentation.annotations.ApiIgnore
 @RestController
 // 通过这里配置使下面的映射都在/users下，可去除
 @RequestMapping(value = "/users")
+@Slf4j
 class UserController {
 
     static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
@@ -22,6 +24,7 @@ class UserController {
     // 等价于@RequestMapping(value = "", method = RequestMethod.GET)
     @GetMapping("")
     List<User> getUserList() {
+        log.info("getUserList in.")
         new ArrayList<User>(users.values())
     }
 

@@ -1,8 +1,6 @@
 server:
   port: 8080
 
-
-
 swagger:
   enabled: true
   title: Scaffold Rest API
@@ -11,3 +9,12 @@ swagger:
   patterns:
     - .*users.*
     - .*applications.*
+
+#logging:
+#  config: classpath:logback-defaults.xml
+
+spring:
+  application:
+    name: scaffold
+  profiles:
+    active: dev
