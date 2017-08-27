@@ -8,7 +8,7 @@ swagger:
   contact: chaochao.yuan@vivo.com
   patterns:
     - .*users.*
-    - .*applications.*
+    - .*hello.*
 
 #logging:
 #  config: classpath:logback-defaults.xml

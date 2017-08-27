@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import org.lord.scaffold.model.User
 import org.springframework.web.bind.annotation.*
-import springfox.documentation.annotations.ApiIgnore
 
 /**
  *
@@ -63,12 +62,6 @@ class UserController {
     String deleteUser(@PathVariable Long id) {
         users.remove(id)
         "success"
-    }
-
-    @ApiIgnore
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String index() {
-        "Hello World"
     }
 
 }
