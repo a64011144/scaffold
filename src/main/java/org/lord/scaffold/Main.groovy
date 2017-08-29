@@ -15,9 +15,9 @@ import org.springframework.context.annotation.ComponentScan
         "org.lord.scaffold",
         "com.netflix.spinnaker.config"
 ])
-public class Main {
+class Main {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.run(Main.class, args)
     }
 
