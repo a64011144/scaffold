@@ -2,11 +2,11 @@ package org.lord.scaffold.services
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-import org.lord.scaffold.services.commands.HystrixFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import org.springframework.web.context.request.async.DeferredResult
 
-import java.util.concurrent.*
+import java.util.concurrent.ExecutorService
 
 /**
  *
@@ -17,40 +17,20 @@ import java.util.concurrent.*
 @Slf4j
 class HelloService {
 
-    private static final String GROUP = "applications"
-
     @Autowired
     ExecutorService executorService
 
-    String sleepForAWhile(long time) {
-        def sleepTasks = buildSleepTasks(time)
-        List<Future<Void>> futures = executorService.invokeAll(sleepTasks)
-        try {
-            futures.collect { it.get(100, TimeUnit.SECONDS) }
-        } catch (ExecutionException ee) {
-            throw ee
-        }
+    void sleepForAWhile(long time, DeferredResult deferredResult) {
+        executorService.execute(new Runnable() {
+            @Override
+            void run() {
+                log.info('Thread name: {}', Thread.currentThread().name)
+                Thread.sleep(time)
+                deferredResult.setResult('Finished')
+            }
+        })
 
-        'FINISHED'
     }
 
-    private Collection<Callable<Void>> buildSleepTasks(long time) {
-        return [
-                new SleepTask(time)
-        ] as Collection<Callable<Void>>
-    }
-
-    static class SleepTask implements Callable<void> {
-        private final long millis
-
-        SleepTask(long millis) {
-            this.millis = millis
-        }
-
-        @Override
-        void call() throws Exception {
-            Thread.sleep(millis)
-        }
-    }
 
 }

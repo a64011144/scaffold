@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.context.request.async.DeferredResult
 import springfox.documentation.annotations.ApiIgnore
 
 /**
@@ -22,25 +23,17 @@ class HelloController {
     HelloService helloService
 
     @ApiIgnore
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    String index() {
-        println "[HelloController] " + Thread.currentThread().name
-
-        helloService.sleepForAWhile(10000)
-
-        "Hello World"
+    @RequestMapping(value = "/non-blocking", method = RequestMethod.GET)
+    DeferredResult<String> index() {
+        def deferredResult = new DeferredResult<String>()
+        helloService.sleepForAWhile(10000, deferredResult)
+        deferredResult
     }
 
     @ApiOperation(value = "统一异常处理", notes = "测试异常处理，返回json格式")
     @GetMapping("/exception")
     String exception() {
-        println "/exception" + Thread.currentThread().name
-        try {
-            throw new GlobalExceptionHandler.InternalServerError("Internal server exception!")
-        } catch (Exception e) {
-            println 'exception block'
-        }
-        println 'finally!'
+        throw new GlobalExceptionHandler.InternalServerError("Internal server exception!")
     }
 
 }
