@@ -18,3 +18,8 @@ spring:
     name: scaffold
   profiles:
     active: dev
+
+# springboot-actuator problem: Full authentication is required to access this resource.
+management:
+  security:
+    enabled: false
