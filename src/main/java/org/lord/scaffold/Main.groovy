@@ -3,7 +3,6 @@ package org.lord.scaffold
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient
 import org.springframework.context.annotation.ComponentScan
 
 /**
@@ -12,10 +11,8 @@ import org.springframework.context.annotation.ComponentScan
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableEurekaClient
 @ComponentScan([
-        "org.lord.scaffold",
-        "com.netflix.spinnaker.config"
+        "org.lord.scaffold"
 ])
 class Main {
 
